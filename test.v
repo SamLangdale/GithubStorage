@@ -1,3 +1,5 @@
+
+// 7 seg code in verilog
 module test(
     input logic [3:0] digit, //4-bit input
     output logic [6:0] segments
