@@ -5,7 +5,7 @@ leftOf(bay,yonge).
 leftOf(spadina,stgeorge).
 leftOf(christie,bathhurst).
 leftOf(stgeorge,bay).
-leftOf(bathhurst,spadina)
+leftOf(bathhurst,spadina).
 
 leftOf(X,Y) :- westOf(x,Y).
 leftOf(X,Z) :- leftof(X,Y),leftOf(Y,Z).
