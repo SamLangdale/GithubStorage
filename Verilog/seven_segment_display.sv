@@ -1,12 +1,11 @@
-
-// 7 seg code in verilog
-module test(
+// seven segment display
+module seven_segments_decoder (
     input logic [3:0] digit, //4-bit input
-    output logic [6:0] segments
+    output logic [6:0] segments //7 bit output
 );
 
 always_comb begin
-    case [digit]
+    case (digit)
         4'b0000: segments =7'b0111111; //0
         4'b0001: segments =7'b0000110; //1
         4'b0010: segments =7'b1011011; //2
@@ -20,7 +19,7 @@ always_comb begin
         default: segments =7'b0000000; //blank
     endcase
 end
-
+endmodule
 
 
 
