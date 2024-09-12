@@ -9,4 +9,4 @@ leftOf(bathhurst,spadina).
 
 westOf(X,Y) :- leftOf(X,Y).
 leftOf(X,Z) :- leftOf(X,Y),leftOf(Y,Z).
-eastOf(X,Y) :- westOf(Y,X).
+eastOf(X,Y) :- leftOf(Y,X).
