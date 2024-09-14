@@ -6,7 +6,7 @@
 % 1. an example of a sentence that isnt entailed by the KB is bay is west of yonge.
 % 2. even though the statement is true there is no definition that defines what being right of something means.
 
-leftOf(yonge,bay).
+% leftOf(yonge,bay).
 leftOf(bay,yonge).
 leftOf(spadina,stgeorge).
 leftOf(christie,bathurst).
