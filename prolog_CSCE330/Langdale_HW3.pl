@@ -120,7 +120,7 @@ brother(Y,X) :- sibling(Y,X), male(Y), Y \= X.
 true .
 */
 
-sister(Y,X) :- sibling(Y,X), female(Y).
+sister(Y,X) :- sibling(Y,X), female(Y), Y \= X.
 /*
  ?- sister(clara,dante).
    Call: (12) sister(clara, dante) ? creep
@@ -137,7 +137,7 @@ true .
 */
 
 % 3. 
-half_sibling(Y,X) :- sibling(X,Y), parent(Z,X), \+ parent(Z,Y).
+half_sibling(Y,X) :- sibling(X,Y), parent(Z,X), \+ parent(Z,Y), Y \= X.
 full_sibling(Y,X) :- sibling(Y,X), parent(Z,X), child(Y,Z), parent(P,X), child(Y,P), P \= Z.
 /*
  full_sibling(sam,ben).
@@ -179,7 +179,7 @@ true .
 */
 
 % 4.
-first_cousin(Y,X) :- grand_parent(Z,Y), grand_parent(Z,X). % you share a grand parent
+first_cousin(Y,X) :- grand_parent(Z,Y), grand_parent(Z,X), Y \= X. % you share a grand parent
 /*
 [trace]  ?- first_cousin(clara,sam).
    Call: (12) first_cousin(clara, sam) ? creep
@@ -280,18 +280,18 @@ first_cousin(Y,X) :- grand_parent(Z,Y), grand_parent(Z,X). % you share a grand p
 true .
 
 */
-second_cousin(Y,X) :- first_cousin(Y,Z), first_cousin(X,Z). % great grandparents are in common
+second_cousin(Y,X) :- first_cousin(Y,Z), first_cousin(X,Z), Y \= X. % great grandparents are in common
 
 % 5. 
-half_first_cousin(Y,X) :- parent(Z,Y), parent(P,X), half_sibling(Z,P).
-double_first_cousin(Y,X) :- parent(Z,Y), sibling(Z,P), child(X,P), parent(R,X), sibling(R,M), child(Y,M).
+half_first_cousin(Y,X) :- parent(Z,Y), parent(P,X), half_sibling(Z,P) ,Y \= X.
+double_first_cousin(Y,X) :- parent(Z,Y), sibling(Z,P), child(X,P), parent(R,X), sibling(R,M), child(Y,M), Y \= X.
 
 % 6. 
-first_cousin_once_removed(Y,X) :- parent(Z,Y), first_cousin(Z,X).
-first_cousin_twice_removed(Y,X) :- grand_parent(Z,Y), first_cousin(Z,X).
+first_cousin_once_removed(Y,X) :- parent(Z,Y), first_cousin(Z,X), Y \= X.
+first_cousin_twice_removed(Y,X) :- grand_parent(Z,Y), first_cousin(Z,X), Y \= X.
 
 % 7. 
-decendant(Y,X) :- child(Y,X).
+decendant(Y,X) :- child(Y,X), Y \= X.
 decendant(Y,X) :- child(Y,Z), decendant(Z,X).    
 /*
 Call: (12) decendant(gioia, lawrence) ? creep
@@ -446,7 +446,7 @@ true .
 */
 
 % 8.
-cousin(Y,X) :- first_cousin(Y,X).
+cousin(Y,X) :- first_cousin(Y,X), Y \= X.
 cousin(Y,X) :- parent(A,X), parent(B,Y), cousin(A,B).
 
 % 9.
