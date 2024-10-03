@@ -34,7 +34,6 @@ grand_father(X,Z) :- father(X,Y), parent(Y,Z).
 % New clauses for Exercise of Ch.4[L] follow
 
 % 1.
-mother(Y,X) :- parent(Y,X), female(Y).
 /*
 [trace]  ?- mother(emily,sam).
    Call: (12) mother(emily, sam) ? creep
