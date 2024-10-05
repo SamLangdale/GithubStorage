@@ -68,7 +68,76 @@ E = 4 .
 + 62513
  158746
  */
- 
+
+% 3. person food and drink puzzle
+
+solution3(Pizza,David,Danny,Doreen,Donna) :-
+    sol(David,Danny,Doreen,Donna,Chicken,Lasagna,Steak,Pizza,Coffee,Water,Coke,Milk),
+    match(Pizza,Danny,'Danny'),
+    match(Pizza,Donna,'Donna'),
+    match(Pizza,Doreen,'Doreen'),
+    match(Pizza,David,'David').
+
+match(X,X,Name) :- write(Name), write(' ordered the pizza.').
+match(X,Y,_) :- \+ X=Y.
 
 
 
+sol(David,Danny,Doreen,Donna,Chicken,Lasagna,Steak,Pizza,Coffee,Water,Coke,Milk) :-
+    uniq_pos(Donna,Danny,David,Doreen),
+    uniq_pos(Chicken,Lasagna,Steak,Pizza),
+    uniq_pos(Coffee,Water,Coke,Milk),
+    across(Danny,David),
+    across(Donna,Doreen),
+    beside(Doreen,Steak),  
+    Chicken = Coke,        
+    across(Lasagna,Milk),  
+    \+ David = Coffee,    
+    Donna = Water,         
+    \+ Danny = Steak,
+    uniq_pos(Donna,Danny,David,Doreen),
+    uniq_pos(Chicken,Lasagna,Steak,Pizza),
+    uniq_pos(Coffee,Water,Coke,Milk). 
+    
+
+uniq_pos(P1,P2,P3,P4) :- 
+    pos(P1), pos(P2), pos(P3), pos(P4),
+    \+ P1=P2,\+ P2=P3,\+ P3=P4,
+    \+ P1=P3,\+ P2=P4,
+    \+ P1=P4.
+
+pos(1). pos(2). pos(3). pos(4).
+
+beside(1,2). beside(2,1). beside(3,4). beside(4,3).
+across(1,3). across(3,1). across(2,4). across(4,2).
+
+/*
+?- solution3(Pizza,David,Danny,Doreen,Donna).
+Donna ordered the pizza.
+Pizza = Donna, Donna = 1,
+David = 4,
+Danny = 2,
+Doreen = 3 
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
