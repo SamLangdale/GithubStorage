@@ -37,7 +37,7 @@ true .
 
 %6 D. use Member and no recursion
 
-intersect(X,Y) :- member(E,X), member(E,Y). % incorrect
+intersect(X,Y) :- member(E,X), member(E,Y). 
 /*
 ?- intersect([1,2,3],[4,5,6,7,8,3]).
    Call: (12) intersect([1, 2, 3], [4, 5, 6, 7, 8, 3]) ? creep
@@ -58,7 +58,7 @@ true.
 
 */
 % 6. E
-
+all_intersect(Z,Y,X)
 
 
 
