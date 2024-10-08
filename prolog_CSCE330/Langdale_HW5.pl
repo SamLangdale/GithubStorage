@@ -35,11 +35,29 @@ false.
 true .
 */
 
-%6 D.
-intersect(X,Y)
+%6 D. use Member and no recursion
+
+intersect(X,Y) :- member(E,X), member(E,Y). % incorrect
 /*
+?- intersect([1,2,3],[4,5,6,7,8,3]).
+   Call: (12) intersect([1, 2, 3], [4, 5, 6, 7, 8, 3]) ? creep
+   Call: (13) lists:member(_115044, [1, 2, 3]) ? creep
+   Exit: (13) lists:member(1, [1, 2, 3]) ? creep
+   Call: (13) lists:member(1, [4, 5, 6, 7, 8, 3]) ? creep
+   Fail: (13) lists:member(1, [4, 5, 6, 7, 8, 3]) ? creep
+   Redo: (13) lists:member(_115044, [1, 2, 3]) ? creep
+   Exit: (13) lists:member(2, [1, 2, 3]) ? creep
+   Call: (13) lists:member(2, [4, 5, 6, 7, 8, 3]) ? creep
+   Fail: (13) lists:member(2, [4, 5, 6, 7, 8, 3]) ? creep
+   Redo: (13) lists:member(_115044, [1, 2, 3]) ? creep
+   Exit: (13) lists:member(3, [1, 2, 3]) ? creep
+   Call: (13) lists:member(3, [4, 5, 6, 7, 8, 3]) ? creep
+   Exit: (13) lists:member(3, [4, 5, 6, 7, 8, 3]) ? creep
+   Exit: (12) intersect([1, 2, 3], [4, 5, 6, 7, 8, 3]) ? creep
+true.
 
 */
+% 6. E
 
 
 
