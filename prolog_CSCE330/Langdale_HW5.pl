@@ -36,7 +36,7 @@ true .
 */
 
 %6 D. use Member and no recursion
-
+intersect([],_). % the empty set intersects every set
 intersect(X,Y) :- member(E,X), member(E,Y). 
 /*
 ?- intersect([1,2,3],[4,5,6,7,8,3]).
@@ -59,7 +59,7 @@ true.
 */
 % 6. E
 
-all_intersect([],_). % base case
+all_intersect([],_). % the empty set intersects every set
 all_intersect([C|L],B) :- intersect(B,C), all_intersect(L,B).  
 
 /*
