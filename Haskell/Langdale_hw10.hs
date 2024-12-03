@@ -26,8 +26,8 @@ ghci> perfects 10000
 -}
 
 -- permutaion of 3s (leetcode problem)
-
-
-
 permu :: Eq a => [a] -> [[a]]
 permu [x,y,z] = [[a,b,c] | a <- [x, y, z], b <- [x, y, z], c <- [x, y, z], a/=b,b/=c,c/=a]
+
+
+
