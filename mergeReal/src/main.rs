@@ -1,3 +1,5 @@
+use std::vec;
+
     
 
 
@@ -75,7 +77,7 @@ impl Fly for Penguin {
     }
 }
 */
-fn main() {
+/*fn main() {
     let mut arr = vec![64, 34, 25, 8, 22, 11, 9];
     let sorted_arr = merge_sort(&mut arr);
     println!("{:?}", sorted_arr); // [8, 9, 11, 22, 25, 34, 64]
@@ -108,6 +110,14 @@ fn merge<T: Ord + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T>
     result.extend_from_slice(&left[i..]); 
     result.extend_from_slice(&right[j..]);
     result
+}
+*/
+fn main() {
+    let arr = vec![0,1,2,3,4,5,6,7,8,9];
+    let left = &arr[..5];
+    let right = &arr[5..];
+    println!("{:?}",left);
+    println!("{:?}",right);
 }
 
 
