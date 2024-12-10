@@ -3,7 +3,7 @@ use std::vec;
     
 
 
-/*struct Dog {
+struct Dog {
     name: String,
     breed: String,
 }
@@ -20,7 +20,7 @@ fn dog_walker(dog: Dog) {
     println!("Sent {} the {} to the dog walker", dog.name, dog.breed);
     dog.walk(); // Borrowed dog can still be used as long as we do not modify or move it
 }
-/* 
+
 fn main(){
     let myDog = Dog {
         name: String::from("Buddy"),
@@ -36,9 +36,9 @@ fn main(){
    
 
 }
-*/
 
-/*fn main(){
+
+fn main(){
     let myDog = Dog {
         name: String::from("Buddy"),
         breed: String::from("Golden Retriever"),
@@ -48,7 +48,6 @@ fn main(){
     myDog.walk();          // this wont work because once the dog went out of scope its value was dropped from the heap
 
 }
-*/
 
 trait Fly {
     fn fly(&self) {
@@ -76,8 +75,8 @@ impl Fly for Penguin {
         println!("pretends to fly"); //overwrites default
     }
 }
-*/
-/*fn main() {
+
+fn main() {
     let mut arr = vec![64, 34, 25, 8, 22, 11, 9];
     let sorted_arr = merge_sort(&mut arr);
     println!("{:?}", sorted_arr); // [8, 9, 11, 22, 25, 34, 64]
@@ -111,7 +110,7 @@ fn merge<T: Ord + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T>
     result.extend_from_slice(&right[j..]);
     result
 }
-*/
+
 fn main() {
     let arr = vec![0,1,2,3,4,5,6,7,8,9];
     let left = &arr[..5];

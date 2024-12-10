@@ -29,5 +29,9 @@ ghci> perfects 10000
 permu :: Eq a => [a] -> [[a]]
 permu [x,y,z] = [[a,b,c] | a <- [x, y, z], b <- [x, y, z], c <- [x, y, z], a/=b,b/=c,c/=a]
 
+square :: Int -> Int
+square x = x * x
+result = map square [1, 2, 3, 4, 5]
+
 
 
