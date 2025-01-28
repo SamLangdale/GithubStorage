@@ -15,5 +15,11 @@ length'' = foldr (\_ n -> 1 + n) 0
 lengthnew :: [a] -> Int
 lengthnew = foldr (\_ n -> 1 + n) 0
 
-len2 :: (Foldable t1, Foldable t2, Num a1, Num (t1 a1),  Num (t1 a1 -> t1 a1)) => t2 a2 -> a1
-len2 x = sum (foldr (\x -> 1) 0 x)
+
+len2 x = foldr (\_ n -> n+1) 0 x
+
+reverse :: [a] -> [a]
+reverse = foldr (\ x xs -> xs ++ [x]) [] 
+
+reverse2 x = foldr(\a as -> as ++ [a]) [] x
+
