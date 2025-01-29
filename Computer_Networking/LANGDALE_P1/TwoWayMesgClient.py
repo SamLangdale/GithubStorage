@@ -6,6 +6,7 @@ from socket import *
 # Import argv related methods
 from sys import *
 
+import threading
 
 # Client needs server's contact information
 if len(argv) != 3:
@@ -28,23 +29,42 @@ sockFile = sock.makefile(mode='w')
 
 
 
-# Keep reading lines and send to server
-while True:
-    # makes a file for server in (added)
-    ServerSockFile = sock.makefile()
+
+
+def Msg_In() :
+        ServerSockFile = sock.makefile()
+        # reads message from server (added)
+        message = ServerSockFile.readline()
+        if not message:
+            print('Client closed connection')
+            ServerSockFile.close()
+            sock.close()
+        print('Server:', message, end='')
+        ServerSockFile.close()
+    # done
+    #print("Closing connection")
+    #sock.close()
+
+def Msg_Out() :
     for line in stdin:
         #  Send the line to server
         sock.send(line.encode())
         break
-        # reads message from server (added)
-    message = ServerSockFile.readline()
-    if not message:
-        print('Client closed connection')
-        ServerSockFile.close()
-        sock.close()
-        break
-    print('Server:', message, end='')
-    ServerSockFile.close()
-    # done
-print("Closing connection")
-sock.close()
+
+
+
+t_In = threading.Thread(target=Msg_In)
+t_In.start
+
+
+if __name__ == "__main__":
+     while True :
+          t_In.join
+          if(stdin.isatty()) :
+               t_Out = threading.Thread(target=Msg_Out)
+               t_Out.start
+               t_Out.join
+
+        
+     
+
