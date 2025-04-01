@@ -1,6 +1,6 @@
 // copyright Sam Langdale
 #include "../include/bool_expr_server.h"
-#include <boolean expression.h>  //  change this when submitting
+#include <boolean_expression_parser.h>  //  change this when submitting
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/un.h>
@@ -25,7 +25,7 @@ volatile sig_atomic_t stop_flag = 0;
 
 void signal_handler(int signal) {
     if (signal == SIGINT) {
-        cout << "evaluate one more client" <<endl;d
+        cout << "evaluate one more client" <<endl;
         stop_flag = 1;
     }
 }

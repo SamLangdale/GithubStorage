@@ -25,7 +25,7 @@ volatile sig_atomic_t stop_flag = 0;
 
 void signal_handler(int signal) {
     if (signal == SIGINT) {
-        cout << "evaluate one more client" <<endl;d
+        cout << "evaluate one more client" <<endl;
         stop_flag = 1;
     }
 }
