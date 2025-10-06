@@ -6,7 +6,7 @@ from socket import *
 # Import argv related methods
 from sys import *
 
-import threading
+import select
 
 # Client needs server's contact information
 if len(argv) != 3:
@@ -23,6 +23,9 @@ sock = socket(AF_INET, SOCK_STREAM)
 # Connect to the server
 sock.connect((serverName, serverPort))
 print(f"Connected to server at ('{serverName}', '{serverPort}')");
+
+# initialized the list of input and output
+socketList = [stdin,sock]
 
 # Make a file stream out of socket
 sockFile = sock.makefile(mode='w')
@@ -53,18 +56,23 @@ def Msg_Out() :
 
 
 
-t_In = threading.Thread(target=Msg_In)
-t_In.start
+#t_In = threading.Thread(target=Msg_In)
+#t_Out = threading.Thread(target=Msg_Out)
+#t_In.start
+#t_Out.start
 
+while True :
+     read_socket,write_socket = select.select(socketList,[],[])
 
+     for sock in read_socket:
+          Msg_In()
 
-if __name__ == "__main__":
-     while True :
-          t_In.join
-          if(stdin.isatty()) :
-               t_Out = threading.Thread(target=Msg_Out)
-               t_Out.start
-               t_Out.join
+     for sock in read_socket:
+          Msg_Out()
+     
+
+     
+
 
         
      

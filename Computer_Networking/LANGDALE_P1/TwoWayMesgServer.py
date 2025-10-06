@@ -6,7 +6,7 @@ from socket import *
 # Import argv related methods
 from sys import *
 
-import threading 
+import select
 # Server needs the port number to listen on
 if len(argv) != 2:
     print('usage:', argv[0], '<port>')
@@ -32,7 +32,8 @@ print('Connected to a client at', clientAddr)
 # No other clients, close the server socket
 #serverSock.close()
 
-
+# initialized the list of input and output
+socketList = [stdin,serverSock]
 
 #makes the server write file(added)
 sockFile = serverSock.makefile(mode='w')
@@ -54,25 +55,25 @@ def Msg_In() :
     clientSockFile.close()
 
 def Msg_Out() :
-     # Make a file stream out of client socket
-     #clientSockFile = clientSock.makefile()
      for line in stdin:
         # Send the line to server
         clientSock.send(line.encode())
         break
 
-t_In = threading.Thread(target=Msg_In)
-t_In.start
 
+#t_In = threading.Thread(target=Msg_In)
+#t_Out = threading.Thread(target=Msg_Out)
+#t_In.start
+#t_Out.start
 
+while True :
+    read_socket,write_socket = select.select(socketList,[],[])
+    for sock in read_socket:
+          Msg_In()
 
-if __name__ == "__main__":
-     while True :
-          t_In.join
-          if(stdin.isatty()) :
-               t_Out = threading.Thread(target=Msg_Out)
-               t_Out.start
-               t_Out.join
+    for sock in read_socket:
+          Msg_Out()
+     
 
 
 
