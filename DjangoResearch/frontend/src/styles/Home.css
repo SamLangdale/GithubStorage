@@ -10,16 +10,25 @@ div {
 .notes-section h2 {
   color: #333;
   font-size: 24px;
+  text-align: center;
 }
 
-/* Styles for individual notes - assuming your Note component has some container element */
-.note {
-  background-color: #f9f9f9;
+
+.note-container {
+  margin: 0 0 12px;
+  color: #334155;
+  background-color: #ccc;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  flex: 1 1 auto;
   border-left: 5px solid #007bff;
   margin: 10px 0;
   padding: 10px 15px;
   border-radius: 5px;
 }
+.note-title { color: #042a2b; }
+.note-content { color: #083344; }
+
 
 /* Styles for the form section */
 form {
@@ -65,3 +74,20 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background-color: #0056b3;
 }
+
+.logout {
+  position: absolute;
+  right: 1%;
+  top: 2%;
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.logout:hover {
+  background-color: #d32f2f; /* Darker red */
+}
+

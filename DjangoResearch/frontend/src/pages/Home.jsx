@@ -7,6 +7,7 @@ function Home() {
     const [notes, setNotes] = useState([]);
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
+    const [youtubeLink, setyoutubeLink] = useState("");
 
     useEffect(() => {
         getNotes();
@@ -37,7 +38,7 @@ function Home() {
     const createNote = (e) => {
         e.preventDefault();
         api
-            .post("/api/notes/", { content, title })
+            .post("/api/notes/", { content, title, youtubeLink })
             .then((res) => {
                 if (res.status === 201) alert("Note created!");
                 else alert("Failed to make note.");
@@ -49,12 +50,16 @@ function Home() {
     return (
         <div>
             <div>
+                <div className="notes-section">
                 <h2>Notes</h2>
+                <a href="http://localhost:5173/logout"><button className="logout">Logout</button></a>
                 {notes.map((note) => (
                     <Note note={note} onDelete={deleteNote} key={note.id} />
                 ))}
             </div>
+            </div>
             <h2>Create a Note</h2>
+            
             <form onSubmit={createNote}>
                 <label htmlFor="title">Title:</label>
                 <br />
@@ -74,6 +79,14 @@ function Home() {
                     required
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                ></textarea>
+                <label htmlFor="youtubeLink">Youtube Link (not required):</label>
+                <br />
+                <textarea
+                    id="youtubeLink"
+                    name="youtubeLink"
+                    value={youtubeLink}
+                    onChange={(e) => setyoutubeLink(e.target.value)}
                 ></textarea>
                 <br />
                 <input type="submit" value="Submit"></input>
