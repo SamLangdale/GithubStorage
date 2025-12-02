@@ -42,7 +42,7 @@ class TMmachine():
     tape: list[str]
     head_pos: int
     current_state: node
-    def __init__(self, states= [], tape =[], head_pos=0, current_state=None, alphabet = [], tape_alphabet = [], blank_symbol = "_"):
+    def __init__(self, states= [], tape =[], head_pos=1, current_state=None, start_state=None, alphabet = [], tape_alphabet = [], blank_symbol = "_"):
         self.states = states
         self.tape = tape
         self.head_pos = head_pos
@@ -50,9 +50,54 @@ class TMmachine():
         self.alphabet = alphabet
         self.tape_alphabet = tape_alphabet
         self.blank_symbol = blank_symbol
+        self.start_state = start_state
 
     def runTMRec(self, input_string:str):
 
+        return_list = []
+        f = open(input_string, "r")
+        if f.readline().strip() != "Recognizer":
+            raise Exception("Input type mismatch: expected Recognizer")
+        line = f.readline().strip()
+        while True:
+            if not line:
+                break
+            self.tape = list(self.blank_symbol + line + self.blank_symbol)
+            halt = False
+            while not halt:
+                print("Current tape:", "".join(self.tape))
+                print("Head position:", self.head_pos)
+                print("Current state:", self.current_state.name)
+                current_symbol = self.tape[self.head_pos]
+                transition_found = False
+                for delta in self.current_state.deltas:
+                    if delta.read_symbol == current_symbol:
+                        transition_found = True
+                        self.tape[self.head_pos] = delta.write_symbol
+                        if delta.move_direction == "R":
+                            self.head_pos += 1
+                        elif delta.move_direction == "L":
+                            self.head_pos -= 1
+                        self.current_state = delta.next_node
+                        break
+                if not transition_found:
+                    halt = True
+                    return_list.append("Rejected")
+                    print("rejected")
+                elif self.current_state.end_state:
+                    halt = True
+                    return_list.append("Accepted")
+                    print("accepted")
+            line = f.readline().strip()
+            self.tape = []
+            self.head_pos = 1
+            self.current_state = self.start_state
+        
+        return return_list
+                
+    
+
+            
 
 
 
@@ -60,6 +105,60 @@ class TMmachine():
 
 
     def runTMTrans(self, input_string:str):
+        return_list = []
+        f = open(input_string, "r")
+        if f.readline().strip() != "Transducer":
+            raise Exception("Input type mismatch: expected Transducer")
+        line = f.readline().strip()
+        while True:
+            if not line:
+                break
+            self.tape = list(self.blank_symbol + line + self.blank_symbol)
+            halt = False
+            while not halt:
+                print("Current tape:", "".join(self.tape))
+                print("Head position:", self.head_pos)
+                print("Current state:", self.current_state.name)
+
+                # ensure head_pos is within tape bounds
+                if self.head_pos < 0:
+                    self.tape.insert(0, self.blank_symbol)
+                    self.head_pos = 0
+                if self.head_pos >= len(self.tape):
+                    self.tape.append(self.blank_symbol)
+
+                current_symbol = self.tape[self.head_pos]
+                transition_found = False
+                for delta in self.current_state.deltas:
+                    if delta.read_symbol == current_symbol:
+                        transition_found = True
+                        self.tape[self.head_pos] = delta.write_symbol
+                        if delta.move_direction == "R":
+                            self.head_pos += 1
+                        elif delta.move_direction == "L":
+                            self.head_pos -= 1
+                        self.current_state = delta.next_node
+                        break
+
+                if not transition_found:
+                    halt = True
+                    return_list.append("Rejected")
+                    print("rejected")
+                elif self.current_state.end_state:
+                    halt = True
+                    # convert tape to string and strip surrounding blank symbols
+                    out = "".join(self.tape)
+                    if out.startswith(self.blank_symbol):
+                        out = out[1:]
+                    if out.endswith(self.blank_symbol):
+                        out = out[:-1]
+                    return_list.append(out)
+            line = f.readline().strip()
+            self.tape = []
+            self.head_pos = 1
+            self.current_state = self.start_state
+        
+        return return_list
         
 
 
@@ -116,6 +215,7 @@ class TMmachine():
             if state.name == line:
                 state.start_state = True
                 self.current_state = state
+                self.start_state = state
                 break
         # reading blank symbol
         self.blank_symbol = f.readline().strip()

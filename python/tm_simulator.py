@@ -18,11 +18,9 @@ def main():
     ret_type = f.readline().strip()
     sol = []
     if ret_type == "Recognizer":
-        input_file = f.read()[:1]
-        sol = tm.runTMRec(input_file)
+        sol = tm.runTMRec(tm_input)
     elif ret_type == "Transducer":
-        input_file = f.read()[:1]
-        sol = tm.runTMTrans(input_file)
+        sol = tm.runTMTrans(tm_input)
     else:
         raise Exception("Invalid input type specified in input file. Use 'Recognizer' or 'Transducer'.")
     
