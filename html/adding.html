@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Title</title>
+</head>
+<body>
+  <main>
+    <h1>Add Two Values</h1>
+    <form id="add-form">
+      <div>
+        <label for="input1">First value:</label>
+        <input type="text" id="input1" name="input1" placeholder="Enter first value">
+      </div>
+      <div>
+        <label for="input2">Second value:</label>
+        <input type="text" id="input2" name="input2" placeholder="Enter second value">
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+
+    </form>
+    <h1 id="sol" ></h1>
+  </main>
+</body>
+
+</html>
+<script>
+  const form = document.getElementById('add-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const input1 = parseFloat(document.getElementById('input1').value);
+    const input2 = parseFloat(document.getElementById('input2').value);
+
+    if (isNaN(input1) || isNaN(input2)) {
+      alert('Please enter valid numbers in both fields.');
+      return;
+    }
+
+    const sum = input1 + input2;
+    document.getElementById('sol').textContent = 'The sum is: ' + sum +' :)';
+  });
+</script>
+

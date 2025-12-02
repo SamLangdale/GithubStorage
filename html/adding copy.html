@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Title</title>
+</head>
+<body>
+  <main>
+    <h1>is even?</h1>
+    <form id="even-form">
+      <div>
+        <label for="input1"> value:</label>
+        <input type="text" id="input1" name="input1" placeholder="Enter first value">
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+
+    </form>
+    <h1 id="sol" ></h1>
+  </main>
+</body>
+
+</html>
+<script>
+  const form = document.getElementById('add-form');
+  form.addEventListener('submit', function(event) {
+    document.getElementById('sol').textContent = "  const sum = input1\n    if sum == 0{\n      document.getElementById('sol').textContent = 'The number is even :)'\n    } if sum == 1{\n      document.getElementById('sol').textContent = 'The number is odd :('\n    } if sum == 2{\n      document.getElementById('sol').textContent = 'The number is even :)'\n    } if sum == 3{\n      document.getElementById('sol').textContent = 'The number is odd :(\n    } if sum == 4{\n      document.getElementById('sol').textContent = 'The number is even :)'\n    } if sum == 5{\n      document.getElementById('sol').textContent = 'The number is odd :(\n    } if sum == 6{\n      document.getElementById('sol').textContent = 'The number is even :)'\n    } if sum == 7{\n      document.getElementById('sol').textContent = 'The number is odd :(\n    } if sum == 8{\n      document.getElementById('sol').textContent = 'The number is even :)'\n    } if sum == 9{\n      document.getElementById('sol').textContent = 'The number is odd :(\n    } if sum == 10{\n      document.getElementById('sol').textContent = 'The number is even :)'\n    } else {\n      document.getElementById('sol').textContent = 'Number too big :/'\n    } ";
+  });
+</script>
+

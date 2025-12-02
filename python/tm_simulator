@@ -1,0 +1,46 @@
+import sys
+from tm_machine import TMmachine
+
+
+def main():
+    if len(sys.argv) != 3:
+        print("Usage: python tm_simulator.py <TM_Definition> <TM_input>")
+        sys.exit(1)
+    tm_definition_file = sys.argv[1]
+    tm_input = sys.argv[2]
+    tm = TMmachine()
+    tm.readDefinitions(tm_definition_file)
+    for nodes in tm.states:
+        print("State:", nodes.name)
+        for delta in nodes.deltas:
+            print("  On reading:", delta.read_symbol, "write:", delta.write_symbol, "move:", delta.move_direction, "next state:", delta.next_node.name)
+    f = open(tm_input, "r")
+    ret_type = f.readline().strip()
+    sol = []
+    if ret_type == "Recognizer":
+        input_file = f.read()[:1]
+        sol = tm.runTMRec(input_file)
+    elif ret_type == "Transducer":
+        input_file = f.read()[:1]
+        sol = tm.runTMTrans(input_file)
+    else:
+        raise Exception("Invalid input type specified in input file. Use 'Recognizer' or 'Transducer'.")
+    
+    print(" ".join(sol))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
