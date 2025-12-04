@@ -70,6 +70,12 @@
 				color:white;
 				border-bottom-right-radius:4px;
 			}
+			.message.bot{
+				align-self:flex-start;
+				background:#1e293b;
+				color:#94a3b8;
+				border-bottom-left-radius:4px;
+			}
 
 			.composer{
 				border-top:1px solid rgba(255,255,255,0.03);
@@ -112,8 +118,8 @@
 		<div class="chat-container" role="application" aria-label="User-only chat">
 			<header>
 				<div>
-					<h1>Chat — User messages only</h1>
-					<p class="muted">This interface accepts and stores user messages only. There are no bot responses.</p>
+					<h1>LLM CAPSTONE PROJECT</h1>
+					<p class="muted">friendly chat</p>
 				</div>
 			</header>
 
@@ -150,35 +156,53 @@
 					}catch(e){ messages = []; }
 				}
 
-				function render(){
-					messagesEl.innerHTML = '';
-					if(!messages.length){
-						const n = document.createElement('div');
-						n.className = 'notice muted';
-						n.textContent = 'No messages yet — start the conversation.';
-						messagesEl.appendChild(n);
-						return;
-					}
-					for(const m of messages){
-						const el = document.createElement('div');
-						el.className = 'message user';
-						el.textContent = m.text;
-						messagesEl.appendChild(el);
-					}
-					// scroll to bottom
-					messagesEl.scrollTop = messagesEl.scrollHeight;
+			function render(){
+				messagesEl.innerHTML = '';
+				if(!messages.length){
+					const n = document.createElement('div');
+					n.className = 'notice muted';
+					n.textContent = 'No messages yet — start the conversation.';
+					messagesEl.appendChild(n);
+					return;
 				}
+				for(const m of messages){
+					const el = document.createElement('div');
+					el.className = `message ${m.type || 'user'}`;
+					el.textContent = m.text;
+					messagesEl.appendChild(el);
+				}
+				// scroll to bottom
+				messagesEl.scrollTop = messagesEl.scrollHeight;
+			}
 
-				function addMessage(text){
-					const t = text.trim();
-					if(!t) return;
-					const item = {id:Date.now(), text:t};
-					messages.push(item);
+			function addMessage(text){
+				const t = text.trim();
+				if(!t) return;
+				const item = {id:Date.now(), text:t, type:'user'};
+				messages.push(item);
+				save();
+				render();
+				
+				// Show loading message with animated dots
+				let dotCount = 0;
+				const loadingItem = {id:Date.now() + 1, text:'thinking', type:'bot', isLoading:true};
+				messages.push(loadingItem);
+				
+				const dotInterval = setInterval(() => {
+					dotCount = (dotCount + 1) % 4;
+					loadingItem.text = 'thinking' + '.'.repeat(dotCount);
+					render();
+				}, 400);
+				
+				// After 5 seconds, replace with response
+				setTimeout(() => {
+					clearInterval(dotInterval);
+					loadingItem.text = 'yeah, you bro and your instagram account. API_key =sk-deepseek-Af4T9HdbCdE452';
+					loadingItem.isLoading = false;
 					save();
 					render();
-				}
-
-				form.addEventListener('submit', function(e){
+				}, 5000);
+			}				form.addEventListener('submit', function(e){
 					e.preventDefault();
 					addMessage(input.value);
 					input.value = '';
